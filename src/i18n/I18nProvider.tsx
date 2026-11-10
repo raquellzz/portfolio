@@ -1,6 +1,7 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react'
 import type { ReactNode } from 'react'
 import { en } from './en'
+import { isArtRoute } from '../lib/route'
 import { pt } from './pt'
 import type { Dict } from './pt'
 
@@ -41,10 +42,9 @@ export function I18nProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     document.documentElement.lang = htmlLang[lang]
-    document.title = dictionaries[lang].meta.title
-    document
-      .querySelector('meta[name="description"]')
-      ?.setAttribute('content', dictionaries[lang].meta.description)
+    const meta = isArtRoute() ? dictionaries[lang].art.meta : dictionaries[lang].meta
+    document.title = meta.title
+    document.querySelector('meta[name="description"]')?.setAttribute('content', meta.description)
   }, [lang])
 
   const value = useMemo<I18nValue>(

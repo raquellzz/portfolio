@@ -14,6 +14,9 @@ export const en: Dict = {
     proj: 'Projects',
     contact: 'Contact',
     art: 'Art',
+    works: 'Artwork',
+    process: 'Process',
+    dev: 'Dev portfolio',
   },
   controls: {
     language: 'Language',
@@ -183,6 +186,37 @@ export const en: Dict = {
         tags: ['Java', 'TypeScript', 'Spring Boot', 'React'],
       },
     ],
+  },
+  art: {
+    meta: {
+      title: 'Raquel Costa Freire — Art portfolio',
+      description:
+        'Artwork by Raquel Costa Freire, sorted by medium: watercolor, graphite, digital and acrylic.',
+    },
+    hero: {
+      badge: 'Art portfolio',
+      titleStart: 'Between lines, colors and',
+      titleMark: 'layers.',
+      intro:
+        'Beyond code, I like to explore my creative skills through art. Here is my artwork, sorted by the medium I used in each piece.',
+      ctaWorks: 'See the artwork',
+      ctaDev: 'See dev portfolio',
+      handmade: 'handmade',
+    },
+    gallery: {
+      titleStart: 'Artwork,',
+      titleMark: 'by medium.',
+      filterLabel: 'Filter by medium',
+      all: 'All',
+      materials: {
+        watercolor: 'Watercolor',
+        graphite: 'Graphite',
+        digital: 'Digital',
+        acrylic: 'Acrylic',
+      },
+      captionMeta: '[year] · [dimensions]',
+      photoAlt: 'Placeholder for the artwork photo',
+    },
   },
   contact: {
     titleStart: "Let's",

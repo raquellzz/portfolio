@@ -71,6 +71,8 @@ interface PolaroidProps {
   padding?: string
   className?: string
   captionClass?: string
+  /** fita personalizada (padrão: fita grande, girada 3°) */
+  tape?: { mask: string; rotate: number; width: number; height: number }
 }
 
 export function Polaroid({
@@ -84,6 +86,7 @@ export function Polaroid({
   padding = '12px 12px 48px',
   className,
   captionClass = 'text-[26px]',
+  tape = { mask: assets.tape.a, rotate: 3, width: 96, height: 28 },
 }: PolaroidProps) {
   return (
     <figure
@@ -97,7 +100,13 @@ export function Polaroid({
         {children}
         {hint && <span className="font-type text-[11px] text-[#f4c6d3]">{hint}</span>}
       </div>
-      <Tape mask={assets.tape.a} className="top-[-16px] left-1/2 -translate-x-1/2 rotate-3" />
+      <Tape
+        mask={tape.mask}
+        width={tape.width}
+        height={tape.height}
+        className="top-[-16px] left-1/2 -translate-x-1/2"
+        style={{ rotate: `${tape.rotate}deg` }}
+      />
       {caption && (
         <figcaption
           className={cx(

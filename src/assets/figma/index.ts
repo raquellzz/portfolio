@@ -1,4 +1,10 @@
 import arrowCurve from './arrow-curve.svg'
+import arrowDownLeft from './arrow-down-left.svg'
+import tapeArt1 from './tape-art-1.svg'
+import tapeArt2 from './tape-art-2.svg'
+import tapeArt3 from './tape-art-3.svg'
+import tapeGalleryA from './tape-gallery-a.svg'
+import tapeGalleryB from './tape-gallery-b.svg'
 import iconMoon from './icon-moon.svg'
 import labelLilac1 from './label-lilac-1.svg'
 import labelLilac2 from './label-lilac-2.svg'
@@ -24,6 +30,7 @@ import timelineB from './timeline-b.png'
 /** Ativos exportados do Figma (fitas e etiquetas são usados como máscara). */
 export const assets = {
   arrowCurve,
+  arrowDownLeft,
   iconMoon,
   timelineA,
   timelineB,
@@ -33,6 +40,8 @@ export const assets = {
     stack: tapeStack,
     exp: [tapeExp1, tapeExp2, tapeExp3],
     proj: [tapeProj1, tapeProj2],
+    art: [tapeArt1, tapeArt2, tapeArt3],
+    gallery: [tapeGalleryA, tapeGalleryB],
   },
   labelLilac: [labelLilac1, labelLilac2, labelLilac3, labelLilac4],
   labelRose: [labelRose1, labelRose2, labelRose3, labelRose4, labelRose5, labelRose6],

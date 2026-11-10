@@ -12,6 +12,9 @@ export const pt = {
     proj: 'Projetos',
     contact: 'Contato',
     art: 'Arte',
+    works: 'Obras',
+    process: 'Processo',
+    dev: 'Portfólio dev',
   },
   controls: {
     language: 'Idioma',
@@ -181,6 +184,37 @@ export const pt = {
         tags: ['Java', 'TypeScript', 'Spring Boot', 'React'],
       },
     ],
+  },
+  art: {
+    meta: {
+      title: 'Raquel Costa Freire — Portfólio de arte',
+      description:
+        'Obras de arte de Raquel Costa Freire, separadas por material: aquarela, grafite, digital e acrílica.',
+    },
+    hero: {
+      badge: 'Portfólio de arte',
+      titleStart: 'Entre traços, cores e',
+      titleMark: 'camadas.',
+      intro:
+        'Além do código, eu gosto de explorar minhas habilidades criativas por meio da arte. Aqui estão as minhas obras, separadas pelo material que usei em cada uma.',
+      ctaWorks: 'Ver as obras',
+      ctaDev: 'Ver portfólio dev',
+      handmade: 'feito à mão',
+    },
+    gallery: {
+      titleStart: 'As obras,',
+      titleMark: 'por material.',
+      filterLabel: 'Filtrar por material',
+      all: 'Todas',
+      materials: {
+        watercolor: 'Aquarela',
+        graphite: 'Grafite',
+        digital: 'Digital',
+        acrylic: 'Acrílica',
+      },
+      captionMeta: '[ano] · [dimensões]',
+      photoAlt: 'Espaço reservado para a foto da obra',
+    },
   },
   contact: {
     titleStart: 'Vamos',
