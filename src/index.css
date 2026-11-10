@@ -1,0 +1,190 @@
+@import 'tailwindcss';
+
+/* ------------------------------------------------------------------ *
+ * Tokens de cor. Toda cor da interface vem destas variáveis; o tema
+ * escuro só redefine os valores (html[data-theme='dark']).
+ * Nomes de origem no Figma entre parênteses.
+ * ------------------------------------------------------------------ */
+:root {
+  color-scheme: light;
+
+  --c-desk: #d8d2de; /* violet/85 — mesa atrás do caderno */
+  --c-desk-glow: rgb(232 137 165 / 0.22); /* rose/72 */
+  --c-page: #fcf9f4; /* grey/97 — folha */
+  --c-card: #f6efe4; /* grey/93 — papel de cartões */
+  --c-polaroid: #f6f1f4; /* grey/95 */
+  --c-ink: #2a1b2e; /* magenta/14 */
+  --c-muted: #4c5a6a; /* azure/36 */
+  --c-accent: #7a2440; /* rose/31 — preenchimentos */
+  --c-accent-ink: #7a2440; /* rose/31 — texto/bordas em destaque */
+  --c-accent-deep: #55122a; /* rose/20 */
+  --c-on-accent: #ffffff;
+  --c-blush: #f4c6d3; /* rose/87 — post-it */
+  --c-rule: rgb(76 90 106 / 0.2); /* azure/36 20% — pauta */
+  --c-dash: rgb(76 90 106 / 0.55); /* azure/36 55% */
+  --c-margin: rgb(122 36 64 / 0.5); /* rose/31 50% */
+  --c-header: rgb(216 210 222 / 0.9); /* violet/85 90% */
+  --c-mark: rgb(122 36 64 / 0.24); /* rose/31 24% */
+  --c-tape-lilac: rgb(205 190 214 / 0.85); /* violet/79 85% */
+  --c-tape-pink: rgb(240 170 190 / 0.85); /* rose/80 85% */
+  --c-pill: #ffffff;
+  --c-badge-ink: #2a1b2e;
+  --c-badge-muted: #4c5a6a;
+  --c-ring: #a9a2b6; /* violet/67 */
+  --c-hole-fill: #d8d2de;
+  --c-hole-stroke: #8c85a0; /* violet/57 */
+  --c-stamp-edge: #c9bfd0; /* violet/78 */
+  --c-shadow: rgb(42 27 46 / 0.42);
+
+  --c-tab-home: #e4c3cf;
+  --c-tab-about: #d8d2de;
+  --c-tab-exp: #b9c5d3;
+  --c-tab-proj: #f1dfa8;
+  --c-tab-contact: #cdb6d3;
+}
+
+html[data-theme='dark'] {
+  color-scheme: dark;
+
+  --c-desk: #181019;
+  --c-desk-glow: rgb(240 143 174 / 0.1);
+  --c-page: #241a2b;
+  --c-card: #2e2335;
+  --c-polaroid: #3b2e43;
+  --c-ink: #f3eaf0;
+  --c-muted: #b7c1cf;
+  --c-accent: #8f2b4b;
+  --c-accent-ink: #f08fae;
+  --c-accent-deep: #55122a;
+  --c-on-accent: #ffffff;
+  --c-blush: #5b2c43;
+  --c-rule: rgb(183 193 207 / 0.16);
+  --c-dash: rgb(183 193 207 / 0.5);
+  --c-margin: rgb(240 143 174 / 0.45);
+  --c-header: rgb(32 23 40 / 0.88);
+  --c-mark: rgb(240 143 174 / 0.28);
+  --c-tape-lilac: rgb(160 140 185 / 0.85);
+  --c-tape-pink: rgb(214 112 142 / 0.85);
+  --c-pill: #3b2e43;
+  --c-badge-ink: #130d17;
+  --c-badge-muted: #566579;
+  --c-ring: #7c7290;
+  --c-hole-fill: #181019;
+  --c-hole-stroke: #6a6079;
+  --c-stamp-edge: #7c7290;
+  --c-shadow: rgb(0 0 0 / 0.6);
+
+  --c-tab-home: #4a2f3d;
+  --c-tab-about: #3c3547;
+  --c-tab-exp: #2f3b4a;
+  --c-tab-proj: #4a4128;
+  --c-tab-contact: #3f3046;
+}
+
+/* Tokens → utilitários Tailwind (bg-page, text-ink, border-dash…) */
+@theme inline {
+  --color-desk: var(--c-desk);
+  --color-page: var(--c-page);
+  --color-card: var(--c-card);
+  --color-polaroid: var(--c-polaroid);
+  --color-ink: var(--c-ink);
+  --color-muted: var(--c-muted);
+  --color-accent: var(--c-accent);
+  --color-accent-ink: var(--c-accent-ink);
+  --color-accent-deep: var(--c-accent-deep);
+  --color-on-accent: var(--c-on-accent);
+  --color-blush: var(--c-blush);
+  --color-rule: var(--c-rule);
+  --color-dash: var(--c-dash);
+  --color-header: var(--c-header);
+  --color-mark: var(--c-mark);
+  --color-tape-lilac: var(--c-tape-lilac);
+  --color-tape-pink: var(--c-tape-pink);
+  --color-pill: var(--c-pill);
+  --color-badge-ink: var(--c-badge-ink);
+  --color-badge-muted: var(--c-badge-muted);
+  --color-stamp-edge: var(--c-stamp-edge);
+  --color-tab-home: var(--c-tab-home);
+  --color-tab-about: var(--c-tab-about);
+  --color-tab-exp: var(--c-tab-exp);
+  --color-tab-proj: var(--c-tab-proj);
+  --color-tab-contact: var(--c-tab-contact);
+
+  --font-hand: 'Caveat', cursive;
+  --font-type: 'Courier Prime', ui-monospace, monospace;
+  --font-sans: 'Figtree', ui-sans-serif, system-ui, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px;
+}
+
+body {
+  margin: 0;
+  background-color: var(--c-desk);
+  background-image: radial-gradient(
+    ellipse 60% 50% at 100% 25%,
+    var(--c-desk-glow),
+    transparent 70%
+  );
+  background-attachment: fixed;
+  color: var(--c-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Máscara de ativo SVG (fitas e etiquetas recortadas) — a cor vem do bg. */
+.mask-asset {
+  -webkit-mask-image: var(--mask);
+  mask-image: var(--mask);
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+}
+
+/* Marca-texto: realça os 42% inferiores da linha */
+.mark {
+  background-image: linear-gradient(to bottom, transparent 58%, var(--c-mark) 58%);
+}
+
+/* Papel pautado de cartões (passo definido por --pitch) */
+.ruled {
+  --pitch: 28px;
+  background-color: var(--c-card);
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0 calc(var(--pitch) - 1px),
+    var(--c-rule) calc(var(--pitch) - 1px) var(--pitch)
+  );
+}
+
+@keyframes sway {
+  0%,
+  100% {
+    transform: rotate(-1deg);
+  }
+  50% {
+    transform: rotate(1.2deg);
+  }
+}
+
+.sway {
+  transform-origin: 50% 0;
+  animation: sway 6s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .sway {
+    animation: none;
+  }
+}
+
+:focus-visible {
+  outline: 3px solid var(--c-accent-ink);
+  outline-offset: 3px;
+}
