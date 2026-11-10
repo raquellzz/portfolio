@@ -10,6 +10,7 @@ import { Experience } from './sections/Experience'
 import { Gallery } from './sections/Gallery'
 import { Hero } from './sections/Hero'
 import { Projects } from './sections/Projects'
+import { Research } from './sections/Research'
 import { Stack } from './sections/Stack'
 import { ThemeProvider } from './theme/ThemeProvider'
 
@@ -27,6 +28,8 @@ function Home() {
         <Experience />
         <PageDivider />
         <Projects />
+        <PageDivider />
+        <Research />
         <PageDivider />
         <Contact />
       </Sheet>

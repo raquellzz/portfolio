@@ -5,7 +5,7 @@ import type { Lang } from '../i18n/I18nProvider'
 import { cx } from '../lib/styles'
 import { useTheme } from '../theme/ThemeProvider'
 
-type NavKey = 'home' | 'about' | 'exp' | 'proj' | 'contact' | 'works' | 'process'
+type NavKey = 'home' | 'about' | 'exp' | 'proj' | 'research' | 'contact' | 'works' | 'process'
 
 interface Tab {
   href: string
@@ -18,6 +18,7 @@ const homeTabs: Tab[] = [
   { href: '#sobre', key: 'about', bg: 'bg-tab-about' },
   { href: '#exp', key: 'exp', bg: 'bg-tab-exp' },
   { href: '#proj', key: 'proj', bg: 'bg-tab-proj' },
+  { href: '#pesquisa', key: 'research', bg: 'bg-tab-research' },
   { href: '#contato', key: 'contact', bg: 'bg-tab-contact' },
 ]
 
