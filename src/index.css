@@ -134,6 +134,25 @@ html[data-theme='dark'] {
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 80px;
+
+  /* Cursor de lápis; links e botões usam caneta-tinteiro. A ponta (hotspot 6 26)
+     é onde o clique acontece. */
+  --cursor-pencil: url('/cursors/pencil-light.svg') 6 26, auto;
+  --cursor-pen: url('/cursors/pen-light.svg') 6 26, pointer;
+  cursor: var(--cursor-pencil);
+}
+
+html[data-theme='dark'] {
+  --cursor-pencil: url('/cursors/pencil-dark.svg') 6 26, auto;
+  --cursor-pen: url('/cursors/pen-dark.svg') 6 26, pointer;
+}
+
+/* Fora de @layer, vence o cursor-pointer do Tailwind e o padrão do navegador */
+a[href],
+button:not(:disabled),
+summary,
+[role='button'] {
+  cursor: var(--cursor-pen);
 }
 
 body {
