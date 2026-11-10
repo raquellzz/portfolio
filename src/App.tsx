@@ -1,4 +1,5 @@
 import { Header } from './components/Header'
+import { InkTrail } from './components/InkTrail'
 import { PageDivider } from './components/PageDivider'
 import { Sheet } from './components/Sheet'
 import { I18nProvider } from './i18n/I18nProvider'
@@ -57,6 +58,7 @@ export default function App() {
     <ThemeProvider>
       <I18nProvider>
         <div className="px-4 sm:px-[50px]">{isArtRoute() ? <Art /> : <Home />}</div>
+        <InkTrail />
       </I18nProvider>
     </ThemeProvider>
   )

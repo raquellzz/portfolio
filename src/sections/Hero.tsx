@@ -23,16 +23,16 @@ export function Hero() {
       className="flex flex-col items-center gap-10 pt-[76px] pb-[89px] pl-[var(--gutter)] pr-4 sm:pr-10 lg:flex-row"
     >
       {/* ------------------------------ texto ------------------------------ */}
-      <div className="w-full lg:min-w-0 lg:flex-[1.4]">
+      <div className="@container w-full lg:min-w-0 lg:flex-[1.4]">
         <p className="-rotate-2 font-hand text-[clamp(26px,3vw,34px)] leading-none text-accent-ink">
           {h.greeting}
         </p>
 
         <h1 className="mt-3 font-hand font-bold text-ink">
           <span className="block text-[clamp(34px,4vw,48px)] leading-none">{h.iam}</span>
-          <span className="mt-1 block text-[clamp(64px,9vw,112px)] leading-[0.95] tracking-[-0.02em]">
-            <span className="block">{firstName}</span>
-            <span className="mark inline-block py-2">{lastName}</span>
+          {/* cqw = largura da coluna de texto: o nome inteiro cabe numa linha em qualquer tela */}
+          <span className="mt-1 block text-[clamp(40px,14.5cqw,112px)] leading-[0.95] tracking-[-0.02em] whitespace-nowrap">
+            {firstName} <span className="mark inline-block py-2">{lastName}</span>
           </span>
         </h1>
 
