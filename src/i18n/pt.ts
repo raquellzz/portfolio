@@ -21,11 +21,17 @@ export const pt = {
     theme: 'Alternar tema claro/escuro',
   },
   hero: {
-    badge: 'Fullstack developer',
-    titleStart: 'Backend sólido, interfaces claras e',
-    titleMark: ['atenção a', 'cada detalhe.'],
-    intro:
-      'Sou Raquel Costa Freire, desenvolvedora fullstack em Natal, RN. Construo sistemas do banco de dados à interface, de microsserviços a aplicações web e mobile.',
+    greeting: 'Querido visitante,',
+    iam: 'eu sou',
+    name: 'Raquel Freire',
+    rolesLabel: 'Títulos associados a mim',
+    roles: [
+      'desenvolvedora fullstack',
+      'entusiasta da tecnologia',
+      'formada em Tecnologia da Informação',
+      'estudante de Engenharia de Software',
+      'artista',
+    ],
     ctaGithub: 'Ver meu GitHub',
     ctaStory: 'Minha história',
     photoHint: '[sua foto aqui]',
@@ -34,7 +40,7 @@ export const pt = {
     noteTitle: 'Projeto Gotiva',
     noteMeta: 'IMD / Interjato · desde mar/2026',
   },
-  divider: 'vire a página →',
+  divider: 'arraste a página →',
   about: {
     title: 'Sobre mim',
     statementStart: 'Construo sistemas completos, do backend à interface, e ensino o que',

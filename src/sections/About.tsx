@@ -1,5 +1,6 @@
 import type { CSSProperties, ReactNode } from 'react'
 import { assets } from '../assets/figma'
+import { StampCard } from '../components/StampCard'
 import { Button, Polaroid, Ribbon, Tape } from '../components/ui'
 import { photoGradient } from '../lib/styles'
 import { useI18n } from '../i18n/I18nProvider'
@@ -54,15 +55,11 @@ export function About() {
             ))}
           </div>
 
-          <div className="flex flex-col gap-[18px]">
-            {a.highlights.map((item) => (
-              <div
-                key={item.title}
-                className="flex flex-col gap-[5px] rounded-[10px] border-[3px] border-dashed border-accent-ink bg-card px-5 py-[18px]"
-              >
-                <p className="font-hand text-[46px] leading-[46px] font-bold text-accent-ink">{item.title}</p>
-                <p className="text-[15px] leading-[23.25px] text-muted">{item.text}</p>
-              </div>
+          <div className="flex flex-col gap-6">
+            {a.highlights.map((item, i) => (
+              <StampCard key={item.title} title={item.title} rotate={i % 2 === 0 ? -1 : 1}>
+                {item.text}
+              </StampCard>
             ))}
           </div>
 

@@ -1,12 +1,59 @@
+import { useEffect, useRef } from 'react'
 import type { CSSProperties } from 'react'
 import { assets } from '../assets/figma'
 import { Polaroid, Tape, TagChip } from '../components/ui'
 import { photoGradient } from '../lib/styles'
 import { useI18n } from '../i18n/I18nProvider'
+import { useReducedMotion } from '../lib/useReducedMotion'
+
+/** Distância do topo da lista até onde a linha começa. */
+const LINE_TOP = 19
+/** A linha "escreve" até este ponto da altura da janela (0 = topo, 1 = base). */
+const ANCHOR = 0.65
 
 export function Experience() {
   const { t } = useI18n()
   const e = t.experience
+  const listRef = useRef<HTMLOListElement>(null)
+  const reduceMotion = useReducedMotion()
+
+  // A linha é desenhada conforme a página desce; cada selo é carimbado quando
+  // a ponta da linha chega nele. Tudo via CSS vars/atributos, sem re-render.
+  useEffect(() => {
+    const list = listRef.current
+    if (!list) return
+    const items = Array.from(list.querySelectorAll<HTMLElement>('li[data-stamp]'))
+    let frame = 0
+
+    const update = () => {
+      frame = 0
+      const { top, height } = list.getBoundingClientRect()
+      const drawn = reduceMotion
+        ? height
+        : Math.min(Math.max(window.innerHeight * ANCHOR - top, 0), height)
+      list.style.setProperty('--drawn', `${drawn}px`)
+      list.style.setProperty('--pen', !reduceMotion && drawn > LINE_TOP && drawn < height ? '1' : '0')
+      for (const li of items) li.dataset.stamped = String(drawn >= li.offsetTop + 26)
+    }
+    const schedule = () => {
+      if (!frame) frame = requestAnimationFrame(update)
+    }
+
+    update()
+    window.addEventListener('scroll', schedule, { passive: true })
+    window.addEventListener('resize', schedule)
+    return () => {
+      window.removeEventListener('scroll', schedule)
+      window.removeEventListener('resize', schedule)
+      cancelAnimationFrame(frame)
+    }
+  }, [reduceMotion])
+
+  const lineImage: CSSProperties = {
+    backgroundImage: `url(${assets.timelineA}), url(${assets.timelineB})`,
+    backgroundSize: '100% 1024px',
+    backgroundRepeat: 'repeat-y',
+  }
 
   return (
     <section id="exp" className="pt-[76px] pb-[89px] pl-[var(--gutter)] pr-4 sm:pr-10">
@@ -41,23 +88,39 @@ export function Experience() {
         </div>
 
         {/* ------------------------------ linha do tempo ------------------------------ */}
-        <ol className="relative m-0 flex w-full max-w-[569px] list-none flex-col justify-self-end p-0 pl-[55px]">
+        <ol
+          ref={listRef}
+          className="relative m-0 flex w-full max-w-[569px] list-none flex-col justify-self-end p-0 pl-[55px]"
+        >
+          {/* trilho apagado: mostra o caminho que a linha ainda vai percorrer */}
           <span
             aria-hidden
-            className="absolute top-[19px] bottom-0 left-3 w-1"
+            className="absolute bottom-0 left-3 w-1 opacity-20"
+            style={{ top: LINE_TOP, ...lineImage }}
+          />
+          {/* linha "escrita": cresce com o scroll */}
+          <span
+            aria-hidden
+            className="absolute left-3 w-1 overflow-hidden"
             style={{
-              backgroundImage: `url(${assets.timelineA}), url(${assets.timelineB})`,
-              backgroundSize: '100% 1024px',
-              backgroundRepeat: 'repeat-y',
+              top: LINE_TOP,
+              height: `max(0px, calc(var(--drawn, 0px) - ${LINE_TOP}px))`,
+              ...lineImage,
             }}
+          />
+          {/* ponta da caneta, só enquanto a linha está sendo desenhada */}
+          <span
+            aria-hidden
+            className="absolute left-[10px] size-3 rounded-full bg-accent-ink transition-opacity duration-200"
+            style={{ top: 'calc(var(--drawn, 0px) - 6px)', opacity: 'var(--pen, 0)' }}
           />
           {e.items.map((item, i) => {
             const tilt = i % 2 === 0 ? -0.8 : 0.8
             return (
-              <li key={item.role.join(' ')} className="relative pb-[41px]">
+              <li key={item.role.join(' ')} data-stamp className="relative pb-[41px]">
                 <span
                   aria-hidden
-                  className="absolute top-[13px] left-[-53px] size-[26px] rounded-[13px] shadow-[3px_4px_0_0_rgb(42_27_46/0.3)]"
+                  className="pin absolute top-[13px] left-[-53px] size-[26px] rounded-[13px]"
                   style={{
                     backgroundImage:
                       'radial-gradient(circle at 35% 30%, #f4c6d3 0, #e8a5b6 11%, #db8499 22%, #cf627c 34%, #c2415f 45%, #9e3350 72%, #7a2440 100%)',

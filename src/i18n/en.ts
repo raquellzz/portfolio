@@ -23,11 +23,18 @@ export const en: Dict = {
     theme: 'Toggle light/dark theme',
   },
   hero: {
-    badge: 'Fullstack developer',
-    titleStart: 'Solid backends, clear interfaces and',
-    titleMark: ['attention to', 'every detail.'],
-    intro:
-      "I'm Raquel Costa Freire, a fullstack developer in Natal, Brazil. I build systems from the database to the interface, from microservices to web and mobile apps.",
+    greeting: 'Dear visitor,',
+    iam: "I'm",
+    name: 'Raquel Freire',
+    rolesLabel: 'Titles associated with me',
+    roles: [
+      'fullstack developer',
+      'technology enthusiast',
+      'Information Technology graduate',
+      'Software Engineering student',
+      'digital inclusion teacher',
+      'artist',
+    ],
     ctaGithub: 'See my GitHub',
     ctaStory: 'My story',
     photoHint: '[your photo here]',
@@ -36,7 +43,7 @@ export const en: Dict = {
     noteTitle: 'Gotiva Project',
     noteMeta: 'IMD / Interjato · since Mar/2026',
   },
-  divider: 'turn the page →',
+  divider: 'scroll the page →',
   about: {
     title: 'About me',
     statementStart: 'I build complete systems, from backend to interface, and teach what I',

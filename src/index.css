@@ -201,3 +201,81 @@ body {
   outline: 3px solid var(--c-accent-ink);
   outline-offset: 3px;
 }
+
+/* Cursor piscando do texto que é digitado no hero */
+@keyframes caret-blink {
+  0%,
+  45% {
+    opacity: 1;
+  }
+  55%,
+  100% {
+    opacity: 0;
+  }
+}
+
+.caret {
+  animation: caret-blink 1s steps(1) infinite;
+}
+
+/* Pino da linha do tempo: "espeta" quando a linha chega nele */
+.pin {
+  opacity: 0;
+  box-shadow: 3px 4px 0 0 rgb(42 27 46 / 0.3);
+}
+
+[data-stamped='true'] .pin {
+  animation: pin-drop 0.45s cubic-bezier(0.3, 0.8, 0.3, 1.25) forwards;
+}
+
+@keyframes pin-drop {
+  0% {
+    opacity: 0;
+    transform: translateY(-26px) scale(1.7);
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(2px) scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Picote de selo postal: meias-luas recortadas nas 4 bordas (mask, então é transparente de verdade) */
+.stamp-edge {
+  --hole: 4px; /* raio de cada furo */
+  --pitch: 16px; /* distância aproximada entre furos (ajustada para fechar nos cantos) */
+  --m-top: radial-gradient(circle var(--hole) at 50% 0, #0000 calc(var(--hole) - 0.5px), #000 var(--hole));
+  --m-bottom: radial-gradient(circle var(--hole) at 50% 100%, #0000 calc(var(--hole) - 0.5px), #000 var(--hole));
+  --m-left: radial-gradient(circle var(--hole) at 0 50%, #0000 calc(var(--hole) - 0.5px), #000 var(--hole));
+  --m-right: radial-gradient(circle var(--hole) at 100% 50%, #0000 calc(var(--hole) - 0.5px), #000 var(--hole));
+  -webkit-mask-image: var(--m-top), var(--m-bottom), var(--m-left), var(--m-right);
+  mask-image: var(--m-top), var(--m-bottom), var(--m-left), var(--m-right);
+  -webkit-mask-size:
+    var(--pitch) 100%,
+    var(--pitch) 100%,
+    100% var(--pitch),
+    100% var(--pitch);
+  mask-size:
+    var(--pitch) 100%,
+    var(--pitch) 100%,
+    100% var(--pitch),
+    100% var(--pitch);
+  -webkit-mask-repeat: round no-repeat, round no-repeat, no-repeat round, no-repeat round;
+  mask-repeat: round no-repeat, round no-repeat, no-repeat round, no-repeat round;
+  -webkit-mask-composite: source-in;
+  mask-composite: intersect;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .caret {
+    animation: none;
+  }
+  .pin,
+  [data-stamped='true'] .pin {
+    animation: none;
+    opacity: 1;
+  }
+}
