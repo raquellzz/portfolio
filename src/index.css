@@ -1,5 +1,17 @@
 @import 'tailwindcss';
 
+/* Fonte manuscrita própria (só tem peso Regular). A faixa 400–700 evita que o
+   navegador sintetize negrito falso nos títulos. */
+@font-face {
+  font-family: 'Raquellzz';
+  src:
+    url('./assets/fonts/Raquellzz-Regular.ttf') format('truetype'),
+    url('./assets/fonts/Raquellzz-Regular.otf') format('opentype');
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* ------------------------------------------------------------------ *
  * Tokens de cor. Toda cor da interface vem destas variáveis; o tema
  * escuro só redefine os valores (html[data-theme='dark']).
@@ -110,7 +122,8 @@ html[data-theme='dark'] {
   --color-tab-proj: var(--c-tab-proj);
   --color-tab-contact: var(--c-tab-contact);
 
-  --font-hand: 'Caveat', cursive;
+  --font-hand: 'Raquellzz', 'Caveat', cursive;
+  /* --font-hand: 'Caveat', cursive; */
   --font-type: 'Courier Prime', ui-monospace, monospace;
   --font-sans: 'Figtree', ui-sans-serif, system-ui, sans-serif;
 }
