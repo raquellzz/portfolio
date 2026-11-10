@@ -102,6 +102,14 @@ export const pt = {
       backend: 'Backend',
       data: 'Dados e infra',
     },
+    sort: {
+      instructions:
+        'Para reordenar, pressione Espaço ou Enter para pegar a tecnologia, use as setas para mover e Espaço ou Enter para soltar. Esc cancela.',
+      picked: 'Pegou {name}.',
+      moved: '{name} movido para a posição {pos} de {total}.',
+      dropped: '{name} colado na posição {pos} de {total}.',
+      cancelled: '{name} devolvido ao lugar original.',
+    },
     concepts: [
       'Microsserviços e microfrontends',
       'Automação com RPA',

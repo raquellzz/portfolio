@@ -9,7 +9,7 @@ const MIN_STEP = 2
 
 /** Elementos em que arrastar tem outro significado (clicar, digitar, mídia…). */
 const INTERACTIVE =
-  'a, button, input, textarea, select, summary, label, img, video, canvas, [role="button"], [contenteditable]'
+  'a, button, input, textarea, select, summary, label, img, video, canvas, [role="button"], [contenteditable], [data-no-ink]'
 
 type Point = { x: number; y: number; t: number; w: number }
 
@@ -41,6 +41,14 @@ function makeGraphite(color: string, dpr: number, ctx: CanvasRenderingContext2D)
   // o contexto já é escalado pelo dpr; desfaz para o grão ter 1px de verdade
   pattern?.setTransform(new DOMMatrix().scale(1 / dpr))
   return pattern
+}
+
+/** Apertar o botão num texto (fora de links, botões e adesivos) começa uma seleção. */
+function startsTextSelection(target: EventTarget | null): boolean {
+  if (!(target instanceof Element) || target.closest(INTERACTIVE)) return false
+  return Array.from(target.childNodes).some(
+    (n) => n.nodeType === Node.TEXT_NODE && n.textContent?.trim(),
+  )
 }
 
 /** Só risca em áreas sem texto: o alvo não pode ser interativo nem ter texto próprio. */
@@ -138,10 +146,13 @@ export function InkTrail() {
     const stop = () => {
       current = null
       document.documentElement.style.userSelect = ''
+      document.documentElement.classList.remove('selecting-text')
     }
 
     const onDown = (e: PointerEvent) => {
       if (e.button !== 0 || !e.isPrimary || e.pointerType === 'touch') return
+      // seleção de texto: o cursor de marca-texto acompanha até soltar o botão
+      document.documentElement.classList.toggle('selecting-text', startsTextSelection(e.target))
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
       if (!canStartInk(e.target)) return
 

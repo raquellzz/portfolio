@@ -139,12 +139,18 @@ html {
      é onde o clique acontece. */
   --cursor-pencil: url('/cursors/pencil-light.svg') 4 20, auto;
   --cursor-pen: url('/cursors/pen-light.svg') 4 20, pointer;
+  --cursor-highlighter: url('/cursors/highlighter-light.svg') 5 21, text;
+  --cursor-grab: url('/cursors/hand-open-light.svg') 12 12, grab;
+  --cursor-grabbing: url('/cursors/hand-closed-light.svg') 12 12, grabbing;
   cursor: var(--cursor-pencil);
 }
 
 html[data-theme='dark'] {
   --cursor-pencil: url('/cursors/pencil-dark.svg') 4 20, auto;
   --cursor-pen: url('/cursors/pen-dark.svg') 4 20, pointer;
+  --cursor-highlighter: url('/cursors/highlighter-dark.svg') 5 21, text;
+  --cursor-grab: url('/cursors/hand-open-dark.svg') 12 12, grab;
+  --cursor-grabbing: url('/cursors/hand-closed-dark.svg') 12 12, grabbing;
 }
 
 /* Fora de @layer, vence o cursor-pointer do Tailwind e o padrão do navegador */
@@ -167,6 +173,25 @@ body {
   color: var(--c-ink);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
+}
+
+/* Marca-texto sobre o texto. Fica de fora o que já tem cursor próprio: links, botões e adesivos */
+:where(p, h1, h2, h3, h4, h5, h6, span, small, strong, em, figcaption, blockquote, dt, dd):not(
+    :where(a, button, summary, [role='button'], [data-no-ink], .sticker) *
+  ) {
+  cursor: var(--cursor-highlighter);
+}
+
+/* Enquanto se seleciona texto, o marca-texto acompanha o arrasto mesmo fora das letras */
+html.selecting-text,
+html.selecting-text * {
+  cursor: var(--cursor-highlighter) !important;
+}
+
+/* Texto selecionado: como marca-texto rosa, nas cores do tema */
+::selection {
+  background-color: var(--c-blush);
+  color: var(--c-ink);
 }
 
 /* Máscara de ativo SVG (fitas e etiquetas recortadas) — a cor vem do bg. */
@@ -300,4 +325,158 @@ body {
     animation: none;
     opacity: 1;
   }
+}
+
+/* ------------------------------------------------------------------ *
+ * Scrapbook: papéis variados e adesivos
+ * ------------------------------------------------------------------ */
+
+/* Papel quadriculado */
+.graph-paper {
+  background-color: var(--c-card);
+  background-image:
+    linear-gradient(var(--c-rule) 1px, transparent 1px),
+    linear-gradient(90deg, var(--c-rule) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
+/* Papel pontilhado (bullet journal) */
+.dot-paper {
+  background-color: var(--c-card);
+  background-image: radial-gradient(circle, var(--c-dash) 1px, transparent 1.5px);
+  background-size: 20px 20px;
+}
+
+/* Adesivo: o mouse dobra a ponta, apertar descola (libera o arrasto) e soltar cola de novo */
+.sticker {
+  --r: 0deg;
+  position: relative;
+  transform: rotate(var(--r));
+  box-shadow:
+    0 0 0 3px var(--c-pill),
+    0 8px 14px -4px var(--c-shadow);
+  transition:
+    transform 0.2s cubic-bezier(0.3, 0.8, 0.3, 1.3),
+    box-shadow 0.2s,
+    background-color 0.2s;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  cursor: var(--cursor-grab); /* mão aberta ao passar o mouse */
+}
+
+/* Ponta dobrada no canto inferior direito: o triângulo é o verso do papel */
+.sticker::after {
+  content: '';
+  position: absolute;
+  right: 1px;
+  bottom: 1px;
+  width: 0;
+  height: 0;
+  opacity: 0;
+  clip-path: polygon(100% 0, 0 100%, 0 0);
+  background: linear-gradient(135deg, var(--c-pill) 10%, rgb(42 27 46 / 0.22) 100%);
+  transition:
+    width 0.18s ease-out,
+    height 0.18s ease-out,
+    opacity 0.12s;
+  pointer-events: none;
+}
+
+@media (hover: hover) {
+  .sticker:hover {
+    transform: rotate(0deg) translateY(-3px) scale(1.04);
+    box-shadow:
+      0 0 0 3px var(--c-pill),
+      0 14px 18px -6px var(--c-shadow);
+  }
+  .sticker:hover::after {
+    width: 14px;
+    height: 14px;
+    opacity: 1;
+  }
+}
+
+/* Apertado: já descolado, pronto para arrastar */
+.sticker[data-pressed='true'] {
+  transform: rotate(0deg) translateY(-5px) scale(1.09);
+  box-shadow:
+    0 0 0 3px var(--c-pill),
+    0 20px 22px -8px var(--c-shadow);
+  transition-duration: 0.08s;
+  cursor: var(--cursor-grabbing); /* mão fechada ao apertar */
+}
+
+.sticker[data-pressed='true']::after {
+  width: 18px;
+  height: 18px;
+  opacity: 1;
+}
+
+/* Adesivo que acompanha o ponteiro durante o arrasto */
+.sticker[data-lifted] {
+  transform: rotate(3deg) scale(1.12);
+  box-shadow:
+    0 0 0 3px var(--c-pill),
+    0 26px 26px -10px var(--c-shadow);
+  cursor: var(--cursor-grabbing);
+}
+
+.sticker[data-lifted]::after {
+  width: 18px;
+  height: 18px;
+  opacity: 1;
+}
+
+/* Lugar de onde o adesivo saiu: só a marca tracejada, que acompanha a nova posição */
+.sticker[data-slot='true'] {
+  background-color: transparent;
+  box-shadow: none;
+  outline: 2px dashed var(--c-dash);
+  outline-offset: -2px;
+  transform: rotate(0deg);
+}
+
+.sticker[data-slot='true'] > * {
+  opacity: 0;
+}
+
+.sticker[data-slot='true']::after {
+  opacity: 0;
+}
+
+/* Colou: pulinho ao cair no lugar */
+.sticker[data-pop='true'] {
+  animation: sticker-pop 0.45s ease-out;
+}
+
+@keyframes sticker-pop {
+  0% {
+    transform: rotate(0deg) scale(1.09);
+  }
+  45% {
+    transform: rotate(-5deg) scale(0.94);
+  }
+  75% {
+    transform: rotate(var(--r)) scale(1.04);
+  }
+  100% {
+    transform: rotate(var(--r)) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sticker,
+  .sticker::after {
+    transition: none;
+  }
+  .sticker[data-pop='true'] {
+    animation: none;
+  }
+}
+
+/* Durante o arrasto a mão fechada vale para a tela toda, não só sobre o adesivo */
+html.dragging-sticker,
+html.dragging-sticker * {
+  cursor: var(--cursor-grabbing) !important;
 }

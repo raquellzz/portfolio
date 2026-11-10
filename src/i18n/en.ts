@@ -105,6 +105,14 @@ export const en: Dict = {
       backend: 'Backend',
       data: 'Data & infra',
     },
+    sort: {
+      instructions:
+        'To reorder, press Space or Enter to pick up a technology, use the arrow keys to move it, and Space or Enter to drop it. Escape cancels.',
+      picked: 'Picked up {name}.',
+      moved: '{name} moved to position {pos} of {total}.',
+      dropped: '{name} stuck at position {pos} of {total}.',
+      cancelled: '{name} returned to its original place.',
+    },
     concepts: [
       'Microservices and microfrontends',
       'RPA automation',
